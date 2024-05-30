@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="PagEscolherPokemon">
+        <State />
+      </entry>
+      <entry key="PagInicio">
+        <State />
+      </entry>
+      <entry key="PagLogin">
+        <State />
+      </entry>
+      <entry key="PokemonDex">
+        <State />
+      </entry>
+      <entry key="pokedex_info">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>

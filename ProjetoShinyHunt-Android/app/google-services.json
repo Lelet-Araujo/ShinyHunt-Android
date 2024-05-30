@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "769282784857",
+    "project_id": "foxshinyhunt",
+    "storage_bucket": "foxshinyhunt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769282784857:android:e6db930893a0d078a07b48",
+        "android_client_info": {
+          "package_name": "com.example.shinyhunt_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAefBn_pDXxYFHldQe-CraRCDCbdcChfW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk tools:overrideLibrary="com.android.car.ui" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:exported="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/vulpix"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/vulpix"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ShinyHuntAndroid"
+        android:windowSoftInputMode="adjustPan"
+        tools:targetApi="31">
+        <activity
+            android:name=".Ranking.Ranking_Pag"
+            android:exported="false" />
+        <activity
+            android:name=".Pag_PlayHunt.Pag_PlayHunt"
+            android:exported="false" />
+        <activity
+            android:name=".Pag_FinallyHunt.Pag_FinalyHunt"
+            android:exported="false" />
+        <activity
+            android:name=".Pokedex.pokedex_info"
+            android:exported="true"
+            android:theme="@style/Theme.ShinyHuntAndroid"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Pokedex.PokemonDex"
+            android:exported="true"
+            android:theme="@style/Theme.ShinyHuntAndroid"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PagInicio.PagInicio"
+            android:exported="true"
+            android:theme="@style/Theme.ShinyHuntAndroid"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PagEscolherPokemon.PagEscolherPokemon"
+            android:exported="true"
+            android:theme="@style/Theme.ShinyHuntAndroid"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PagHunt.PagHunt"
+            android:exported="true"
+            android:theme="@style/Theme.ShinyHuntAndroid"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PagLogin.PagLogin"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+    </application>
+
+</manifest>

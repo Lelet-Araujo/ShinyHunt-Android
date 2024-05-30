@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pagina_escolherpokemon"
+    tools:context=".PagEscolherPokemon.PagEscolherPokemon">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="170dp"
+        android:layout_height="151dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.381"
+        tools:srcCompat="@tools:sample/avatars"/>
+
+
+    <TextView
+        android:id="@+id/NomePokemon"
+        android:layout_width="271dp"
+        android:layout_height="47dp"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/listaPokemon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.742"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Start"
+        app:layout_constraintVertical_bias="0.753" />
+
+    <ListView
+        android:id="@+id/listaPokemon"
+        app:layout_constraintTop_toBottomOf="@+id/Start"
+        android:layout_width="251dp"
+        android:layout_height="137dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.686" />
+
+    <ImageButton
+        android:id="@+id/Home"
+        android:layout_width="68dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="60dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/home"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/home" />
+
+    <Button
+        android:id="@+id/Start"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Iniciar"
+        tools:ignore="MissingConstraints"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SearchView
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        android:id="@+id/searchView"
+        android:layout_width="251dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.983"  />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
