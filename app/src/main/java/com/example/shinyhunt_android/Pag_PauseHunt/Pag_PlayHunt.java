@@ -1,4 +1,4 @@
-package com.example.shinyhunt_android.Pag_PlayHunt;
+package com.example.shinyhunt_android.Pag_PauseHunt;
 
 import android.os.Bundle;
 
@@ -11,6 +11,6 @@ public class Pag_PlayHunt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pag_play_hunt);
+        setContentView(R.layout.activity_pag_pause_hunt);
     }
 }

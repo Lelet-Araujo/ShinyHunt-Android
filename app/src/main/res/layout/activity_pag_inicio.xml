@@ -10,9 +10,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="209dp"
-        android:layout_height="400dp"
-        android:layout_marginBottom="136dp"
+        android:layout_width="201dp"
+        android:layout_height="507dp"
+        android:layout_marginBottom="52dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +48,14 @@
             android:layout_height="80dp"
             android:layout_marginBottom="16dp"
             android:text="Pokedex"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="196dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
+            android:text="Recordes"
             android:textSize="20sp" />
 
     </LinearLayout>

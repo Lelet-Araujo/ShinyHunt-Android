@@ -2,8 +2,7 @@ package com.example.shinyhunt_android.PagEscolherPokemon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shinyhunt_android.API.PokeApiService;
 import com.example.shinyhunt_android.API.PokemonResponse;
+import com.example.shinyhunt_android.FireBase.FireBase;
 import com.example.shinyhunt_android.PagHunt.PagHunt;
 import com.example.shinyhunt_android.PagInicio.PagInicio;
 import com.example.shinyhunt_android.R;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,11 +36,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PagEscolherPokemon extends AppCompatActivity {
-
     private ImageView imageView;
     private TextView nomePokemonTextView;
     private PokeApiService pokeApiService;
-    private ListView listaPokemon;
     private ArrayAdapter<Pokemon> adapter;
     private List<Pokemon> allPokemonList;
     private SearchView searchView;
@@ -52,7 +52,7 @@ public class PagEscolherPokemon extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView2);
         nomePokemonTextView = findViewById(R.id.NomePokemon);
-        listaPokemon = findViewById(R.id.listaPokemon);
+        ListView listaPokemon = findViewById(R.id.listaPokemon);
         searchView = findViewById(R.id.searchView);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         listaPokemon.setAdapter(adapter);
@@ -64,51 +64,37 @@ public class PagEscolherPokemon extends AppCompatActivity {
         pokeApiService = retrofit.create(PokeApiService.class);
 
         setupSearchView();
-
         loadPokemonList();
 
-
-
         ImageButton homeButton = findViewById(R.id.Home);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PagEscolherPokemon.this, PagInicio.class);
-                startActivity(intent);
-                finish();
-            }
+        homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(PagEscolherPokemon.this, PagInicio.class);
+            startActivity(intent);
+            finish();
         });
 
         Button startButton = findViewById(R.id.Start);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedPokemon != null) { // Verifica se um Pokémon foi selecionado
-                    // Salva o ID do Pokémon selecionado em um Intent e inicia a próxima atividade
-                    Intent intent = new Intent(PagEscolherPokemon.this, PagHunt.class);
-                    intent.putExtra("selected_pokemon_id", selectedPokemon.getId());
-                    startActivity(intent);
+        startButton.setOnClickListener(v -> {
+            if (selectedPokemon != null) {
+                Intent intent = new Intent(PagEscolherPokemon.this, PagHunt.class);
+                String selectedPokemonId = String.valueOf(selectedPokemon.getId());
+                intent.putExtra("selected_pokemon_id", selectedPokemonId);
+                startActivity(intent);
 
-                } else {
-                    Toast.makeText(PagEscolherPokemon.this, "Selecione um Pokémon primeiro", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText(PagEscolherPokemon.this, "Selecione um Pokémon primeiro", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Configuração do clique na lista de Pokémon
-        listaPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pokemon selectedPokemon = (Pokemon) parent.getItemAtPosition(position);
+        listaPokemon.setOnItemClickListener((parent, view, position, id) -> {
+            Pokemon selectedPokemon = (Pokemon) parent.getItemAtPosition(position);
 
-                if (selectedPokemon != null) {
-                    selectPokemon(selectedPokemon);
-                }
+            if (selectedPokemon != null) {
+                selectPokemon(selectedPokemon);
             }
         });
     }
 
-    // Método para configurar a barra de pesquisa
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -124,7 +110,6 @@ public class PagEscolherPokemon extends AppCompatActivity {
         });
     }
 
-    // Método para filtrar os Pokémon na lista de acordo com o texto da barra de pesquisa
     private void filterPokemon(String query) {
         List<Pokemon> filteredList = new ArrayList<>();
 
@@ -139,17 +124,11 @@ public class PagEscolherPokemon extends AppCompatActivity {
         adapter.addAll(filteredList);
     }
 
-
-
-
-
-
-    // Método para carregar a lista de Pokémon
     private void loadPokemonList() {
         Call<PokemonResponse> call = pokeApiService.getPokemonListLimit();
         call.enqueue(new Callback<PokemonResponse>() {
             @Override
-            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+            public void onResponse(@NonNull Call<PokemonResponse> call, @NonNull Response<PokemonResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Pokemon> pokemonList = response.body().getResults();
                     allPokemonList = new ArrayList<>(pokemonList);
@@ -169,27 +148,17 @@ public class PagEscolherPokemon extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<PokemonResponse> call, @NonNull Throwable t) {
                 Toast.makeText(PagEscolherPokemon.this, "Erro ao obter lista de Pokémon", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Método para extrair o ID do Pokémon a partir da URL
     private int extractPokemonIdFromUrl(String url) {
         String[] urlParts = url.split("/");
         return Integer.parseInt(urlParts[urlParts.length - 1]);
     }
 
-
-
-
-
-
-
-
-
-    // Método para carregar a imagem do Pokémon
     private void loadShinyPokemonImage(int pokemonId) {
         Call<Pokemon> call = pokeApiService.getPokemon(pokemonId);
         call.enqueue(new Callback<Pokemon>() {
@@ -202,33 +171,50 @@ public class PagEscolherPokemon extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Pokemon> call, Throwable t) {
+            public void onFailure(@NonNull Call<Pokemon> call, @NonNull Throwable t) {
                 Toast.makeText(PagEscolherPokemon.this, "Erro ao obter dados do Pokémon", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    /// Método para atualizar o TextView com o nome do Pokémon
     private void updateNomePokemonTextView(String nomePokemon) {
         String capitalizedFirstName = nomePokemon.substring(0, 1).toUpperCase() + nomePokemon.substring(1);
         nomePokemonTextView.setText(capitalizedFirstName);
     }
 
-
-
-
-
-
-
-
-
-    // Método para ser chamado quando um Pokémon for selecionado na lista
     private void selectPokemon(Pokemon pokemon) {
-        selectedPokemon = pokemon; // Armazena o Pokémon selecionado
+        selectedPokemon = pokemon;
         if (selectedPokemon != null) {
             loadShinyPokemonImage(selectedPokemon.getId());
             updateNomePokemonTextView(selectedPokemon.getName());
+
+            captureAndSavePokemonData(selectedPokemon);
         }
+    }
+
+    private String captureAndSavePokemonData(Pokemon pokemon) {
+        String pokemonId = String.valueOf(pokemon.getId());
+        String pokemonName = pokemon.getName();
+
+        FireBase firebase = new FireBase();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            firebase.savePokemonData(userId, pokemonId, pokemonName, new FireBase.OnSavePokemonListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d("Firebase", "Dados do Pokémon salvos com sucesso.");
+
+                }
+
+                @Override
+                public void onFailure(Exception exception) {
+                    Log.e("Firebase", "Falha ao salvar os dados do Pokémon: " + exception.getMessage());
+                }
+            });
+        }
+        return String.valueOf(pokemon.getId());
     }
 }
 

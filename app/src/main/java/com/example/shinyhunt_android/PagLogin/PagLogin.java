@@ -15,21 +15,17 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class PagLogin extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_login);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        // Verificar se o usuário já está logado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null) {
-            // Se o usuário já estiver logado, vá para a MainActivity
             startActivity(new Intent(PagLogin.this, PagInicio.class));
-            finish(); // Finaliza esta atividade para que o usuário não possa voltar pressionando o botão de voltar
+            finish();
         }
 
         ViewPager2 viewPager = findViewById(R.id.viewPager2);

@@ -1,8 +1,10 @@
 package com.example.shinyhunt_android.PagHunt;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,24 +14,26 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shinyhunt_android.FireBase.FireBase;
 import com.example.shinyhunt_android.PagInicio.PagInicio;
 import com.example.shinyhunt_android.R;
 import com.google.firebase.FirebaseApp;
 
-public class PagHunt extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+public class PagHunt extends AppCompatActivity {
     private TextView textView2;
     private int counter = 0;
-    private int increment = 1; // Valor inicial do incremento
-
+    private int increment = 1;
     private TextView tvTimer;
     private Handler handler;
     private Runnable runnable;
     private int seconds = 0;
     private boolean isRunning = false;
-
     private EditText editIncrement;
-    private Button button1, button2, buttonEdit;
+    private Button button1;
+    private Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,112 +46,73 @@ public class PagHunt extends AppCompatActivity {
         editIncrement = findViewById(R.id.editIncrement);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
-        buttonEdit = findViewById(R.id.button6);
+        Button buttonEdit = findViewById(R.id.button6);
 
-        // Exibir tempo inicial
         updateTimerDisplay();
 
-        // Botão de Finish
         Button buttonFinish = findViewById(R.id.buttonFinish);
-        buttonFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishHunt();
-            }
-        });
+        buttonFinish.setOnClickListener(v -> finishHunt());
 
-        // Contador
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                incrementCounter();
-            }
-        });
+        Button buttonPausehunt = findViewById(R.id.buttonPausehunt);
+        buttonPausehunt.setOnClickListener(v -> pauseHunt());
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                decrementCounter();
-            }
-        });
+
+
+
+        button1.setOnClickListener(v -> incrementCounter());
+        button2.setOnClickListener(v -> decrementCounter());
 
         Button buttonReset = findViewById(R.id.button3);
-        buttonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetCounter();
-            }
-        });
+        buttonReset.setOnClickListener(v -> resetCounter());
 
-        // Botão Home
         ImageButton buttonHome = findViewById(R.id.Home);
-        buttonHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PagHunt.this, PagInicio.class);
-                startActivity(intent);
-            }
+        buttonHome.setOnClickListener(v -> {
+            Intent intent = new Intent(PagHunt.this, PagInicio.class);
+            startActivity(intent);
         });
 
-        // Cronômetro
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
                 if (isRunning) {
                     seconds++;
-                    updateTimerDisplay(); // Atualizar exibição do tempo
+                    updateTimerDisplay();
                     handler.postDelayed(this, 1000);
                 }
             }
         };
 
-        // Botão Start
         Button btnStart = findViewById(R.id.button5);
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isRunning) {
-                    isRunning = true;
-                    handler.post(runnable); // Iniciar cronômetro
-                }
+        btnStart.setOnClickListener(v -> {
+            if (!isRunning) {
+                isRunning = true;
+                handler.post(runnable);
             }
         });
 
-        // Botão Stop
         Button btnStop = findViewById(R.id.button4);
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isRunning = false;
-            }
-        });
+        btnStop.setOnClickListener(v -> isRunning = false);
 
-        // Botão Edit
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editIncrement.getVisibility() == View.GONE) {
-                    editIncrement.setVisibility(View.VISIBLE);
-                } else {
-                    updateIncrement();
-                    editIncrement.setVisibility(View.GONE);
-                }
+        buttonEdit.setOnClickListener(v -> {
+            if (editIncrement.getVisibility() == View.GONE) {
+                editIncrement.setVisibility(View.VISIBLE);
+            } else {
+                updateIncrement();
+                editIncrement.setVisibility(View.GONE);
             }
         });
     }
 
-    // Método para atualizar a exibição do cronômetro
     private void updateTimerDisplay() {
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         int secs = seconds % 60;
 
-        String time = String.format("%02d H, %02d Min, %02d S", hours, minutes, secs);
+        @SuppressLint("DefaultLocale") String time = String.format("%02d H, %02d Min, %02d S", hours, minutes, secs);
         tvTimer.setText(time);
     }
 
-    // Contagem
     private void incrementCounter() {
         counter += increment;
         updateCounter();
@@ -167,7 +132,7 @@ public class PagHunt extends AppCompatActivity {
         textView2.setText(String.valueOf(counter));
     }
 
-    // Atualizar incremento
+    @SuppressLint("SetTextI18n")
     private void updateIncrement() {
         String incrementText = editIncrement.getText().toString();
         if (!incrementText.isEmpty()) {
@@ -180,13 +145,86 @@ public class PagHunt extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private String DataAtual() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        return dateFormat.format(data);
+    }
 
-    // Método para finalizar a hunt e retornar para a tela inicial
+    @SuppressLint("SimpleDateFormat")
+    private String HoraAtual() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date data = new Date();
+        return timeFormat.format(data);
+    }
+
+
+    private void pauseHunt() {
+        FireBase firebase = new FireBase();
+        String userId = firebase.getUserId();
+        String pokemonId = getIntent().getStringExtra("selected_pokemon_id");
+
+
+        if (userId != null && pokemonId != null) {
+            String dataAtual = DataAtual();
+            String horaAtual = HoraAtual();
+            String tempo = tvTimer.getText().toString();
+            String contagem = textView2.getText().toString();
+            String statusHunt = "pausada"; // Definindo statusHunt como "pausada"
+
+            firebase.saveHuntData(userId, pokemonId, tempo, contagem, dataAtual, horaAtual, statusHunt, new FireBase.OnSaveHuntListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(PagHunt.this, "Dados da caçada salvos com sucesso.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PagHunt.this, PagInicio.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Exception exception) {
+                    Toast.makeText(PagHunt.this, "Erro ao salvar os dados da caçada.", Toast.LENGTH_SHORT).show();
+                    Log.e("Firebase", "Falha ao salvar os dados da caçada: " + exception.getMessage());
+                }
+            });
+        } else {
+            // Aqui você pode lidar com o caso em que o ID do usuário ou do Pokémon é nulo
+            Log.e("PagHunt", "ID do usuário ou do Pokémon é nulo");
+        }
+    }
+
     private void finishHunt() {
+        FireBase firebase = new FireBase();
+        String userId = firebase.getUserId();
+        String pokemonId = getIntent().getStringExtra("selected_pokemon_id");
 
-        // Volta para a tela inicial
-        Intent intent = new Intent(PagHunt.this, PagInicio.class);
-        startActivity(intent);
-        finish(); // Finaliza a atividade atual
+
+        if (userId != null && pokemonId != null) {
+            String dataAtual = DataAtual();
+            String horaAtual = HoraAtual();
+            String tempo = tvTimer.getText().toString();
+            String contagem = textView2.getText().toString();
+            String statusHunt = "finalizada"; // Definindo statusHunt como "finalizada"
+
+            firebase.saveHuntData(userId, pokemonId, tempo, contagem, dataAtual, horaAtual, statusHunt, new FireBase.OnSaveHuntListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(PagHunt.this, "Dados da caçada salvos com sucesso.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PagHunt.this, PagInicio.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Exception exception) {
+                    Toast.makeText(PagHunt.this, "Erro ao salvar os dados da caçada.", Toast.LENGTH_SHORT).show();
+                    Log.e("Firebase", "Falha ao salvar os dados da caçada: " + exception.getMessage());
+                }
+            });
+        } else {
+            // Aqui você pode lidar com o caso em que o ID do usuário ou do Pokémon é nulo
+            Log.e("PagHunt", "ID do usuário ou do Pokémon é nulo");
+        }
     }
 }

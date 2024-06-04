@@ -25,7 +25,7 @@
             android:name=".Ranking.Ranking_Pag"
             android:exported="false" />
         <activity
-            android:name=".Pag_PlayHunt.Pag_PlayHunt"
+            android:name=".Pag_PauseHunt.Pag_PlayHunt"
             android:exported="false" />
         <activity
             android:name=".Pag_FinallyHunt.Pag_FinalyHunt"

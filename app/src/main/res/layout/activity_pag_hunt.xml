@@ -86,7 +86,7 @@
             android:layout_height="71dp"
             android:layout_margin="5dp"
             android:onClick="stopCapture"
-            android:text="stop"
+            android:text="Stop Time"
             app:layout_column="0"
             app:layout_row="1" />
 
@@ -95,7 +95,7 @@
             android:layout_width="98dp"
             android:layout_height="71dp"
             android:layout_margin="5dp"
-            android:text="Play"
+            android:text="Play Time"
             app:layout_column="1"
             app:layout_row="1" />
 
@@ -104,7 +104,7 @@
             android:layout_width="98dp"
             android:layout_height="71dp"
             android:layout_margin="5dp"
-            android:text="Edit"
+            android:text="Edit Cuount"
             app:layout_column="2"
             app:layout_row="1" />
 
@@ -134,20 +134,19 @@
         android:id="@+id/buttonFinish"
         android:layout_width="181dp"
         android:layout_height="61dp"
-        android:layout_margin="5dp"
-        android:text="Finalizar Hunt"
+        android:layout_marginStart="16dp"
+        android:text="Captura Concluida"
         app:layout_column="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        app:layout_constraintVertical_bias="0.149"
+        app:layout_constraintTop_toBottomOf="@+id/editIncrement"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_row="2" />
 
     <EditText
         android:id="@+id/editIncrement"
-        android:layout_width="148dp"
-        android:layout_height="61dp"
+        android:layout_width="132dp"
+        android:layout_height="77dp"
         android:background="@drawable/borderradius2"
         android:ems="10"
         android:hint="Enter increment"
@@ -158,7 +157,22 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFinish" />
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0.094" />
+
+    <Button
+        android:id="@+id/buttonPausehunt"
+        android:layout_width="181dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="4dp"
+        android:text="Pausar Hunt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toEndOf="@+id/buttonFinish"
+        app:layout_constraintTop_toBottomOf="@+id/editIncrement"
+        app:layout_constraintVertical_bias="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
