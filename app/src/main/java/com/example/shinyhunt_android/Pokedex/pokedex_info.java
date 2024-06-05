@@ -1,6 +1,8 @@
 package com.example.shinyhunt_android.Pokedex;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shinyhunt_android.API.PokeApiService;
 import com.example.shinyhunt_android.PagEscolherPokemon.Pokemon;
-import com.example.shinyhunt_android.PagEscolherPokemon.PokemonType; // Importe a classe PokemonType
+import com.example.shinyhunt_android.PagEscolherPokemon.PokemonType;
+import com.example.shinyhunt_android.PagInicio.PagInicio;
 import com.example.shinyhunt_android.R;
 import com.squareup.picasso.Picasso;
 
@@ -33,6 +36,16 @@ public class pokedex_info extends AppCompatActivity {
         setContentView(R.layout.activity_pokedex_info);
 
         imageView = findViewById(R.id.imageView_Dex_Info);
+
+        ImageButton buttonBackDex = findViewById(R.id.VoltarDex);
+        buttonBackDex.setOnClickListener(v -> onBackPressed());
+
+        ImageButton HomeDex = findViewById(R.id.HomeDex);
+        HomeDex.setOnClickListener(v -> {
+            Intent intent = new Intent(pokedex_info.this, PagInicio.class);
+            startActivity(intent);
+            finish();
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
@@ -105,7 +118,7 @@ public class pokedex_info extends AppCompatActivity {
                         // Aqui você pode filtrar a descrição com base no idioma, se necessário
                         if (entry.getLanguage().getName().equals("en")) { // Filtrando para descrição em inglês
                             // Exibir a descrição do Pokémon
-                            TextView descriptionTextView = findViewById(R.id.textView);
+                            TextView descriptionTextView = findViewById(R.id.Menor);
                             descriptionTextView.setText(entry.getFlavorText());
                             break; // Interrompe após encontrar a primeira descrição em inglês
                         }

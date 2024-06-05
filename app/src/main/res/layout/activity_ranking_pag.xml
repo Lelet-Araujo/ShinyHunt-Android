@@ -7,62 +7,74 @@
     android:background="@drawable/paigina1"
     tools:context=".Ranking.Ranking_Pag">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="213dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="192dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="335dp"
+        android:layout_height="500dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.692">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="211dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="37dp"
-        android:text="Over Odss"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/Nomemaior"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="213dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="61dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/Maior"
+            android:layout_width="213dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="120dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="261dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
-        android:text="Full odss"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        <TextView
+            android:id="@+id/Nomemenor"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/Menor"
+            android:layout_width="213dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="68dp"
+        android:layout_height="63dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/home"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.059"
+        app:srcCompat="@drawable/car_ui_icon_arrow_back" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

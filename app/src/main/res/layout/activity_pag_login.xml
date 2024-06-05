@@ -27,6 +27,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:foregroundTint="#000000"
             android:text="Login"
             tools:layout_editor_absoluteX="13dp"
             tools:layout_editor_absoluteY="129dp" />
@@ -34,6 +35,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:foregroundTint="#000000"
             android:text="Registro"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="122dp" />
