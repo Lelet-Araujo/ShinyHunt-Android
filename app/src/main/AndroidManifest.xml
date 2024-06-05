@@ -21,31 +21,30 @@
         android:theme="@style/Theme.ShinyHuntAndroid"
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
+
+
         <activity
             android:name=".Ranking.Ranking_Pag"
-            android:exported="false" />
+            android:exported="true"/>
+
         <activity
             android:name=".Pag_PauseHunt.Pag_PlayHunt"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Pag_FinallyHunt.Pag_FinalyHunt"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Pokedex.pokedex_info"
             android:exported="true"
             android:theme="@style/Theme.ShinyHuntAndroid"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".Pokedex.PokemonDex"
             android:exported="true"
             android:theme="@style/Theme.ShinyHuntAndroid"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="adjustPan"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".PagInicio.PagInicio"
             android:exported="true"
@@ -64,7 +63,13 @@
         <activity
             android:name=".PagLogin.PagLogin"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

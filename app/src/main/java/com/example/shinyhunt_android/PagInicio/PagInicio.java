@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton; // Importe a classe ImageButton
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import com.example.shinyhunt_android.PagEscolherPokemon.PagEscolherPokemon;
 import com.example.shinyhunt_android.PagLogin.PagLogin;
 import com.example.shinyhunt_android.Pokedex.PokemonDex;
 import com.example.shinyhunt_android.R;
+import com.example.shinyhunt_android.Ranking.Ranking_Pag;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class PagInicio extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class PagInicio extends AppCompatActivity {
 
         Button buttonNovaHunt = findViewById(R.id.NovaHunt);
         Button buttonPokedex = findViewById(R.id.Pokedex);
+        Button buttonRecord = findViewById(R.id.Recordes);
         ImageButton logoutButton = findViewById(R.id.Deslogar);
 
 
@@ -51,6 +53,16 @@ public class PagInicio extends AppCompatActivity {
         });
         //Botão Pokedex
 
+
+        //Botão Recordes
+        buttonRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PagInicio.this, Ranking_Pag.class);
+                startActivity(intent);
+            }
+        });
+        //Botão Recordes
 
 
 
