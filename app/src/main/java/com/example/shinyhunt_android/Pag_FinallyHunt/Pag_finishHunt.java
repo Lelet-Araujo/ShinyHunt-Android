@@ -1,9 +1,7 @@
 package com.example.shinyhunt_android.Pag_FinallyHunt;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -12,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shinyhunt_android.FireBase.HuntPokemonDB;
-import com.example.shinyhunt_android.PagInicio.PagInicio;
 import com.example.shinyhunt_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,14 +38,8 @@ public class Pag_finishHunt extends AppCompatActivity {
 
         fetchPausedHunts();
 
-        ImageButton HuntHome = findViewById(R.id.imageButtonHome);
-        HuntHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Pag_finishHunt.this, PagInicio.class);
-                startActivity(intent);
-            }
-        });
+        ImageButton buttonBack = findViewById(R.id.imageButtonHome);
+        buttonBack.setOnClickListener(v -> onBackPressed());
     }
 
     private void fetchPausedHunts() {
