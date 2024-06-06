@@ -25,7 +25,7 @@ public class Pag_finishHunt extends AppCompatActivity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> huntList = new ArrayList<>();
-    private static final String TAG = "Pag_PlayHunt";
+    private static final String TAG = "Pag_finishHunt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,28 +21,23 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 
 public class Pag_PlayHunt extends AppCompatActivity {
-
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> huntList = new ArrayList<>();
     private static final String TAG = "Pag_PlayHunt";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_play_hunt);
-
         listView = findViewById(R.id.listView);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, huntList);
         listView.setAdapter(adapter);
 
         fetchPausedHunts();
 
-
         ImageButton buttonBack = findViewById(R.id.imageButtonHome2);
         buttonBack.setOnClickListener(v -> onBackPressed());
     }
-
 
     private void fetchPausedHunts() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
