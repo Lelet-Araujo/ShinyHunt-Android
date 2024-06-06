@@ -2,16 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="PagEscolherPokemon">
-        <State />
-      </entry>
       <entry key="PagInicio">
         <State />
       </entry>
       <entry key="PagLogin">
         <State />
       </entry>
-      <entry key="PokemonDex">
+      <entry key="Pag_PlayHunt">
+        <State />
+      </entry>
+      <entry key="Pag_finishHunt">
         <State />
       </entry>
       <entry key="Ranking_Pag">

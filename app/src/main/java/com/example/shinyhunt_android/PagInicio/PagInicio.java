@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shinyhunt_android.PagEscolherPokemon.PagEscolherPokemon;
 import com.example.shinyhunt_android.PagLogin.PagLogin;
+import com.example.shinyhunt_android.Pag_FinallyHunt.Pag_finishHunt;
+import com.example.shinyhunt_android.Pag_PauseHunt.Pag_PlayHunt;
 import com.example.shinyhunt_android.Pokedex.PokemonDex;
 import com.example.shinyhunt_android.R;
 import com.example.shinyhunt_android.Ranking.Ranking_Pag;
@@ -29,7 +31,27 @@ public class PagInicio extends AppCompatActivity {
         Button buttonNovaHunt = findViewById(R.id.NovaHunt);
         Button buttonPokedex = findViewById(R.id.Pokedex);
         Button buttonRecord = findViewById(R.id.Recordes);
+        Button ContinuarHunt = findViewById(R.id.ContinuarHunt);
+        Button HuntConcluida = findViewById(R.id.HuntConcluida);
         ImageButton logoutButton = findViewById(R.id.Deslogar);
+
+
+
+        HuntConcluida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PagInicio.this, Pag_finishHunt.class);
+                startActivity(intent);
+            }
+        });
+
+        ContinuarHunt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PagInicio.this, Pag_PlayHunt.class);
+                startActivity(intent);
+            }
+        });
 
 
         //BotãoNovaHunt
