@@ -41,6 +41,7 @@ public class PagHunt extends AppCompatActivity {
         setContentView(R.layout.activity_pag_hunt);
         FirebaseApp.initializeApp(this);
 
+
         textView2 = findViewById(R.id.textView2);
         tvTimer = findViewById(R.id.timer);
         editIncrement = findViewById(R.id.editIncrement);
@@ -55,9 +56,6 @@ public class PagHunt extends AppCompatActivity {
 
         Button buttonPausehunt = findViewById(R.id.buttonPausehunt);
         buttonPausehunt.setOnClickListener(v -> pauseHunt());
-
-
-
 
         button1.setOnClickListener(v -> incrementCounter());
         button2.setOnClickListener(v -> decrementCounter());
@@ -171,7 +169,7 @@ public class PagHunt extends AppCompatActivity {
             String horaAtual = HoraAtual();
             String tempo = tvTimer.getText().toString();
             String contagem = textView2.getText().toString();
-            String statusHunt = "pausada"; // Definindo statusHunt como "pausada"
+            String statusHunt = "pausada";
 
             firebase.saveHuntData(userId, pokemonId, tempo, contagem, dataAtual, horaAtual, statusHunt, new FireBase.OnSaveHuntListener() {
                 @Override
@@ -189,7 +187,6 @@ public class PagHunt extends AppCompatActivity {
                 }
             });
         } else {
-            // Aqui você pode lidar com o caso em que o ID do usuário ou do Pokémon é nulo
             Log.e("PagHunt", "ID do usuário ou do Pokémon é nulo");
         }
     }
@@ -205,7 +202,7 @@ public class PagHunt extends AppCompatActivity {
             String horaAtual = HoraAtual();
             String tempo = tvTimer.getText().toString();
             String contagem = textView2.getText().toString();
-            String statusHunt = "finalizada"; // Definindo statusHunt como "finalizada"
+            String statusHunt = "finalizada";
 
             firebase.saveHuntData(userId, pokemonId, tempo, contagem, dataAtual, horaAtual, statusHunt, new FireBase.OnSaveHuntListener() {
                 @Override
@@ -219,11 +216,13 @@ public class PagHunt extends AppCompatActivity {
                 @Override
                 public void onFailure(Exception exception) {
                     Toast.makeText(PagHunt.this, "Erro ao salvar os dados da caçada.", Toast.LENGTH_SHORT).show();
+                    String errorMessage = (exception.getMessage() != null) ? exception.getMessage() : "Mensagem de erro não disponível.";
                     Log.e("Firebase", "Falha ao salvar os dados da caçada: " + exception.getMessage());
                 }
             });
         } else {
-            // Aqui você pode lidar com o caso em que o ID do usuário ou do Pokémon é nulo
+            Log.e("UserID", userId);
+            Log.e("PokemonID", pokemonId);
             Log.e("PagHunt", "ID do usuário ou do Pokémon é nulo");
         }
     }

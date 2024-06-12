@@ -1,12 +1,17 @@
 package com.example.shinyhunt_android.FireBase;
 
+import static android.content.ContentValues.TAG;
+
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,7 +102,76 @@ public class FireBase {
                 });
     }
 
+    public void fetchPausedHunts(final OnFetchPausedHuntsListener listener) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference pokemonsRef = db.collection("users").document(userId).collection("pokemons");
 
+            pokemonsRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    ArrayList<String> pausedHuntList = new ArrayList<>();
+                    for (QueryDocumentSnapshot pokemonDocument : task.getResult()) {
+                        String pokemonName = pokemonDocument.getString("nome");
+                        CollectionReference huntsRef = pokemonDocument.getReference().collection("hunts");
+                        huntsRef.whereEqualTo("StatusHunt", "pausada")
+                                .get()
+                                .addOnCompleteListener(huntTask -> {
+                                    if (huntTask.isSuccessful()) {
+                                        for (DocumentSnapshot huntDocument : huntTask.getResult()) {
+                                            HuntPokemonDB hunt = huntDocument.toObject(HuntPokemonDB.class);
+                                            if (hunt != null) {
+                                                String displayText = " " + pokemonName + "  -  " + hunt.getContagem();
+                                                pausedHuntList.add(displayText);
+                                            }
+                                        }
+                                        listener.onSuccess(pausedHuntList);
+                                    } else {
+                                        Log.e(TAG, "Error getting paused hunts: ", huntTask.getException());
+                                        listener.onFailure(huntTask.getException());
+                                    }
+                                });
+                    }
+                } else {
+                    Log.e(TAG, "Error getting pokemons: ", task.getException());
+                    listener.onFailure(task.getException());
+                }
+            });
+        } else {
+            Log.e(TAG, "User not logged in");
+            listener.onFailure(new Exception("User not logged in"));
+        }
+    }
+
+    public void getHuntData(String userId, String pokemonId, OnGetHuntListener listener) {
+        CollectionReference huntsRef = db.collection("users").document(userId)
+                .collection("pokemons").document(pokemonId).collection("hunts");
+
+        huntsRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            HuntPokemonDB huntData = new HuntPokemonDB();
+
+            for (DocumentSnapshot document : queryDocumentSnapshots) {
+                String tempo = document.getString("tempo");
+                String contagem = document.getString("contagem");
+
+                huntData.setTempo(tempo);
+                huntData.setContagem(contagem);
+            }
+
+            listener.onSuccess(huntData);
+        }).addOnFailureListener(listener::onFailure);
+    }
+
+    public interface OnGetHuntListener {
+        void onSuccess(HuntPokemonDB huntData);
+        void onFailure(Exception exception);
+    }
+
+    public interface OnFetchPausedHuntsListener {
+        void onSuccess(ArrayList<String> pausedHuntList);
+        void onFailure(Exception exception);
+    }
 
     public interface OnRegisterListener {
         void onSuccess(FirebaseUser user);
